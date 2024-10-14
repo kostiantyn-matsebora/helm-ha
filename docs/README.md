@@ -1,5 +1,5 @@
-# Home Assistant core chart
-![](https://www.home-assistant.io/images/blog/2023-09-ha10/home-assistant-logo-new.png)
+# ![](https://www.home-assistant.io/images/blog/2023-09-ha10/home-assistant-logo-new.png)
+
 
 Chart for deploying and configuring [Home Assistant](https://www.home-assistant.io/installation) core, also provides ability  to deploy some useful features and addons, such as:
 

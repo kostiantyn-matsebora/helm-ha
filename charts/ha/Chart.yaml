@@ -2,7 +2,7 @@ apiVersion: v2
 name: ha
 description: Home assistant core with addons
 type: application
-version: 0.1.0
+version: 0.1.1
 appVersion: "2024.10"
 dependencies:
 - name: application
@@ -30,6 +30,7 @@ dependencies:
 
 keywords:
   - homeassistant
+  - home assistant
   - ha
   - mosquitto
   - mqtt
@@ -42,7 +43,6 @@ maintainers:
     email: kmatsebora@gmail.com
 kubeVersion: ">=1.9.0-0"
 annotations:
-  artifacthub.io/alternativeName: homeassistant
   artifacthub.io/category: integration-delivery
   artifacthub.io/images: |
     - name: homeassistant

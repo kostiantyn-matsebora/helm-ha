@@ -1,0 +1,32 @@
+# Copies README.md to chart and publishes chart to helm-charts repository.
+# Requires:
+# Repository secrets: 
+# - HELM_BOT_GH_TOKEN - token with push permission to helm-charts repository
+name: Publish
+
+on:
+  push:
+    branches: [ master ]
+    paths:
+      - 'charts/**'
+  workflow_dispatch:
+  pull_request:
+    branches: [master]
+jobs:
+  publish:  
+    name: Publish
+    runs-on: ubuntu-latest
+    steps:      
+      - uses: actions/checkout@v2
+      - name: Copy README.md to chart        
+        run: cp docs/README.md charts/*/
+      - name: Copy LICENSE to chart        
+        run: cp LICENSE charts/*/        
+      - name: Helm tool installer
+        uses: Azure/setup-helm@v3
+        with:
+          version: v3.13.2
+      - name: Build dependencies
+        run: helm dependency build charts/ha
+        
+          

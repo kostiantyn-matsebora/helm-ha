@@ -59,6 +59,8 @@ ha:
 
 ## Optional configuration
 
+In addition to the home assistant itself, it is also possible to [provision storage](https://github.com/kostiantyn-matsebora/helm-storage-provisioner?tab=readme-ov-file#configuration) (PV and PVC) and install [cloudflare tunnel](https://github.com/cloudflare/helm-charts/blob/main/charts/cloudflare-tunnel/values.yaml) as an ingress  gateway for public access:
+
 ```yaml
 
 # Home Assistant storage provisioning (optional)
@@ -68,7 +70,7 @@ persistence:
 
 # Cloudflare argo tunnel (optional)
 # Use it if you want to expose HA to the internet without exposing it directly using public IP and port
-# More information about configuration can be found here: 
+# More information about configuration can be found here: https://github.com/cloudflare/helm-charts/blob/main/charts/cloudflare-tunnel/values.yaml
 tunnel:
   enabled: true # Default is false
   cloudflare:

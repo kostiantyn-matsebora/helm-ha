@@ -1,0 +1,122 @@
+## Home Assistant storage
+persistence:
+  enabled: true
+  volumes:
+    - name: homeassistant-test
+      size: 20Gi
+      storageClassName: longhorn-fast
+      volumeHandle: ha-test
+      accessModes:
+      - ReadWriteMany
+      pv: 
+        enabled: true
+      pvc: 
+        enabled: true
+
+## Home Assistant
+ha: 
+  connectivity:
+    hostNetwork: true
+    service:
+      type: LoadBalancer
+      externalTrafficPolicy: Cluster
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.30
+    ports:
+      - name: http
+        protocol: TCP
+        containerPort: 8123
+        servicePort: 8123
+        nodePort: 32500 
+    probes:
+      readiness:
+        port: http
+  volumes:
+      - name: config
+        persistentVolumeClaim:
+          claimName: homeassistant-test
+      - name: bluetooth
+        hostPath:
+          path: /run/dbus
+  volumeMounts:
+      - mountPath: /config
+        name: config
+      - mountPath: /run/dbus
+        name: bluetooth
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+    request:
+      cpu: 500m
+      memory: 512Mi
+  deployment:
+      strategy:
+        type:
+          Recreate
+
+## Cloudflare argo tunnel
+tunnel:
+  enabled: true
+  cloudflare:
+    account: 
+    tunnelName: 
+    tunnelId:
+    secret: 
+    ingress:
+         
+## Addons
+
+## Mosquitto MQTT broker
+mosquitto:
+  enabled: true
+  auth:
+    enabled: true
+    users:
+      - username: user
+        password: password
+        acl:
+          - topic: "#"
+            access: readwrite
+  service:
+    type: LoadBalancer
+    externalTrafficPolicy: Cluster
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.20
+  ingress:
+    enabled: false
+
+## Ring MQTT bridge
+ring-mqtt:
+  enabled: true
+  mqtt_url: mqtt://admin:encodedpassword@192.168.2.20:1883
+  mqtt_options: --rejectUnauthorized=false
+  persistence:
+    data:
+      enabled: true
+      mountPath: /data
+      size: 2Gi
+      retain: true
+  service:
+    rtsp:
+      clusterIP: 10.43.13.193
+
+## Code server
+code-server:
+  enabled: true
+  password: password
+  persistence:
+    enabled: false
+    existingClaim: codeserver
+  ingress:
+    enabled: true
+    annotations:
+        cert-manager.io/cluster-issuer: cloudflare
+    hosts:
+    - host: ha-codeserver.internal.kmatsebora.net
+      paths:
+        - /
+    tls:
+      - secretName: ha-codeserver.internal.kmatsebora.net-tls
+        hosts:
+          - ha-codeserver.internal.kmatsebora.net

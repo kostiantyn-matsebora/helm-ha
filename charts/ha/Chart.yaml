@@ -1,0 +1,50 @@
+apiVersion: v2
+name: ha
+description: Home assistant core with addons
+type: application
+version: 0.1.0
+appVersion: "2024.10"
+dependencies:
+- name: application
+  repository: https://kostiantyn-matsebora.github.io/helm-charts
+  version: 0.2.0
+  alias: ha
+- condition: persistence.enabled
+  name: storage-provisioner
+  repository: https://kostiantyn-matsebora.github.io/helm-charts
+  version: 1.0.2
+  alias: persistence
+- condition: tunnel.enabled
+  name: cloudflare-tunnel
+  repository: https://kostiantyn-matsebora.github.io/helm-charts
+  version: 0.3.2
+  alias: tunnel
+- condition: mosquitto.enabled
+  name: mosquitto
+  repository: https://kostiantyn-matsebora.github.io/helm-charts
+  version: 0.1.0
+- condition: ring-mqtt.enabled
+  name: ring-mqtt
+  repository: https://kostiantyn-matsebora.github.io/helm-charts
+  version: 10.3.0
+
+keywords:
+  - homeassistant
+  - ha
+  - mosquitto
+  - mqtt
+  - ring
+  - ring-mqtt
+sources:
+  - https://github.com/kostiantyn-matsebora/helm-ha
+maintainers:
+  - name: kostiantyn-matsebora
+    email: kmatsebora@gmail.com
+kubeVersion: ">=1.9.0-0"
+annotations:
+  artifacthub.io/alternativeName: homeassistant
+  artifacthub.io/category: integration-delivery
+  artifacthub.io/images: |
+    - name: homeassistant
+      image: homeassistant/home-assistant:2024.10
+  artifacthub.io/license: MIT

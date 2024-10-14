@@ -1,0 +1,18 @@
+dependencies:
+- name: application
+  repository: https://kostiantyn-matsebora.github.io/helm-charts
+  version: 0.2.0
+- name: storage-provisioner
+  repository: https://kostiantyn-matsebora.github.io/helm-charts
+  version: 1.0.2
+- name: cloudflare-tunnel
+  repository: https://kostiantyn-matsebora.github.io/helm-charts
+  version: 0.3.2
+- name: mosquitto
+  repository: https://kostiantyn-matsebora.github.io/helm-charts
+  version: 0.1.0
+- name: ring-mqtt
+  repository: https://kostiantyn-matsebora.github.io/helm-charts
+  version: 10.3.0
+digest: sha256:b0b5f7910e5d04691279ec9b95e74c9a9f64d45ad7454048270a76f97c244cda
+generated: "2024-10-14T16:12:04.6533121+03:00"

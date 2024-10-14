@@ -1,0 +1,29 @@
+ha:
+  image:
+    repository: homeassistant/home-assistant
+    tag: "2024.10"
+  connectivity:
+    hostNetwork: true
+    service:
+      type: LoadBalancer
+    ports:
+      - name: http
+        protocol: TCP
+        containerPort: 8123
+        servicePort: 8123
+        nodePort: 32500 
+    probes:
+      readiness:
+        port: http
+persistence:
+  enabled: false
+tunnel:
+  enabled: false
+mosquitto:
+  enabled: false
+ring-mqtt:
+  enabled: false
+code-server:
+  enabled: false
+  oauth2:
+    enabled: false

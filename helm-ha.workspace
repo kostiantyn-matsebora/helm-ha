@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../helm-generic-application"
+		},
+		{
+			"path": "../helm-storage-provisioner"
+		}
+	],
+	"settings": {}
+}

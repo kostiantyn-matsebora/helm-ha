@@ -2,8 +2,9 @@ apiVersion: v2
 name: ha
 description: Home assistant core with addons
 type: application
-version: 0.1.1
+version: 0.1.2
 appVersion: "2024.10"
+icon: https://shots.codepen.io/username/pen/jOWzxRe-800.jpg
 dependencies:
 - name: application
   repository: https://kostiantyn-matsebora.github.io/helm-charts

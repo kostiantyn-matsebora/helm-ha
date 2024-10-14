@@ -26,9 +26,18 @@ jobs:
         uses: Azure/setup-helm@v3
         with:
           version: v3.13.2
-      - name: Update dependencies
-        run: helm dependency update charts/ha          
+      - name: Add repository
+        run: helm repo add kostiantyn-matsebora https://kostiantyn-matsebora.github.io/helm-charts/       
       - name: Build dependencies
         run: helm dependency build charts/ha
-        
+      - name: Publish Helm chart
+        if: github.ref == 'refs/heads/master'
+        uses: stefanprodan/helm-gh-pages@master        
+        with:
+          token: ${{ secrets.HELM_BOT_GH_TOKEN }}
+          charts_dir: charts
+          charts_url: https://kostiantyn-matsebora.github.io/helm-charts
+          owner: kostiantyn-matsebora
+          repository: helm-charts
+          branch: master    
           

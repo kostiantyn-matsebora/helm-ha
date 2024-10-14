@@ -26,6 +26,8 @@ jobs:
         uses: Azure/setup-helm@v3
         with:
           version: v3.13.2
+      - name: Update dependencies
+        run: helm dependency update charts/ha          
       - name: Build dependencies
         run: helm dependency build charts/ha
         

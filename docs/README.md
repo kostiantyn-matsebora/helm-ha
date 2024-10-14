@@ -21,7 +21,8 @@ ha:
       type: LoadBalancer
       externalTrafficPolicy: Cluster
     annotations:
-      metallb.universe.tf/loadBalancerIPs: 192.168.2.30 # Preferable, since without it, metallb will assign random IP every time. If you have traefik or any other load balancer, use it is own annotation.
+      metallb.universe.tf/loadBalancerIPs: 192.168.2.30 # Preferable, since without it, metallb will assign random IP every time.
+                                                        # If you have traefik or any other load balancer, use it is own annotation.
     ports:
       - name: http
         protocol: TCP
